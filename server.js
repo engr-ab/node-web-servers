@@ -10,6 +10,17 @@ const app =express();
 //tell your partials directory
 hbs.registerPartials(__dirname+'/views/partials');
 
+//tell express which template engine to use,
+// app.set let us set various express configuration
+app.set('view engine', 'hbs');
+
+hbs.registerHelper('getCurrentYear', ()=>{
+   return new Date().getFullYear();
+});
+hbs.registerHelper('upperCase', (text)=>{
+ return text.toUpperCase();
+});
+
 //middlewares 
  //logger middleware
 app.use((req,res,next)=>{
@@ -38,17 +49,6 @@ app.get('/about', (req, res) => {
    });
 });
 
-hbs.registerHelper('getCurrentYear', ()=>{
-   return new Date().getFullYear();
-});
-hbs.registerHelper('upperCase', (text)=>{
- return text.toUpperCase();
-});
-
-//tell express which template engine to use,
-// app.set let us set various express configuration
-app.set('view engine', 'hbs');
-
 // request handlers , get request handler 'get(route, handler)'
 app.get('/', (req, res) =>{
    res.render('home.hbs', {
@@ -60,7 +60,12 @@ app.get('/', (req, res) =>{
 
 });
 
-
+app.get('/projects', (req,res)=>{
+   res.render('projects.hbs',{
+      pageTitle:'Projects',
+      title:'My Projects'
+   })
+})
 
 app.get('/bad', (req, res) => {
    res.send({
