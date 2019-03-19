@@ -2,6 +2,9 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
+//if PORT not exists then default is 3000 (to run locally)
+
 
 const app =express();
 //tell your partials directory
@@ -63,7 +66,7 @@ app.get('/bad', (req, res) => {
       errorMsg:'an error occured',
    });
 });
-
-app.listen(3000, () => {
-console.log('Server is running....');
+//for heroku port will be set by heroku through environment variable
+app.listen(port, () => {
+console.log(`Server is running on port ${port}`);
 }); // bind ouno
